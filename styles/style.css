@@ -2,7 +2,7 @@
 
 :root {
     /* Font Families */
-    --ff-common: "Helvetica", sans-serif;
+    --ff-common: "Righteous", sans-serif;
 
     /* Font Sizes */
     --fs-base: 1rem;
@@ -20,7 +20,7 @@
     --fs-h6: 0.64rem;
     --fs-h7: var(--smallestFontSize);
 
-    --fs-token: 4rem;
+    --fs-token: 5rem;
 }
 
 *,
@@ -36,6 +36,7 @@
 html,
 body {
     height: 100%;
+    background-color: #475561;
 }
 
 button,
@@ -57,12 +58,13 @@ body {
 }
 
 h1 {
-    font-size: var(--fs-h1);
+    font-size: var(--fs-x-large-heading);
 }
 
 header {
     width: 100%;
     text-align: center;
+    min-height: 3rem;
 }
 
 main {
@@ -73,6 +75,7 @@ main {
 
 footer {
     width: 100%;
+    min-height: 1rem;
     text-align: center;
     margin-top: auto;
 }
@@ -80,11 +83,15 @@ footer {
 /* Class Specific Styling */
 
 .gameboard {
-    outline: 4px solid blue; /* delete */
-    
     display: flex;
-    flex-wrap: wrap;
-    width: clamp(250px, 20%, 450px);
+    flex-direction: column;
+    gap: 0.25rem;
+    width: max(25%, 20rem)
+}
+
+.row {
+    display: flex;
+    gap: 0.25rem;
 }
 
 .square {
@@ -92,17 +99,18 @@ footer {
     justify-content: center;
     align-items: center;
     
-    outline: solid black 1px;
-    width: calc(100%/3);
+    flex: 0 1 33%;
     aspect-ratio: 1;
+
+    background-color: white;
 }
 
-.x-token::before {
-    content: "X";
+.x-token {
+    content: 'X';
     font-size: var(--fs-token);
 }
 
-.o-token::before {
-    content: "O";
+.o-token {
+    content: 'O';
     font-size: var(--fs-token);
 }
