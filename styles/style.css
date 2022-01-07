@@ -1,0 +1,108 @@
+/* Global Styling & Resets */
+
+:root {
+    /* Font Families */
+    --ff-common: "Helvetica", sans-serif;
+
+    /* Font Sizes */
+    --fs-base: 1rem;
+    --fs-nav: 0.64rem;
+    --fs-small: 0.8rem;
+    --fs-x-small: 0.512rem;
+
+    --fs-x-large-heading: 3.052rem;
+    --fs-large-heading: 2.441rem;
+    --fs-h1: 1.953rem;
+    --fs-h2: 1.563rem;
+    --fs-h3: 1.25rem;
+    --fs-h4: var(--baseFontSize);
+    --fs-h5: var(--smallFontSize);
+    --fs-h6: 0.64rem;
+    --fs-h7: var(--smallestFontSize);
+
+    --fs-token: 4rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Element-Specific Styling */
+
+body {
+    font-family: var(--ff-common);
+    font-size: var(--fs-base);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: var(--fs-h1);
+}
+
+header {
+    width: 100%;
+    text-align: center;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* Class Specific Styling */
+
+.gameboard {
+    outline: 4px solid blue; /* delete */
+    
+    display: flex;
+    flex-wrap: wrap;
+    width: clamp(250px, 20%, 450px);
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    outline: solid black 1px;
+    width: calc(100%/3);
+    aspect-ratio: 1;
+}
+
+.x-token::before {
+    content: "X";
+    font-size: var(--fs-token);
+}
+
+.o-token::before {
+    content: "O";
+    font-size: var(--fs-token);
+}
