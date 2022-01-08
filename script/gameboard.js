@@ -13,7 +13,6 @@ const gameboard = (() => {
         for (let i = 0; i < 9; i++) {
             _board[i] = null;
         }
-        events.emit('gameboardChanged', gameboard.get());
     }
 
     function get() {
@@ -22,7 +21,7 @@ const gameboard = (() => {
 
     function _placeToken(playerMove) {
         _board[playerMove[1] * 3 + playerMove[2]] = playerMove[0];
-        events.emit('gameboardChanged', gameboard.get());
+        events.emit('movePlaced', playerMove);
     }
 
     return {

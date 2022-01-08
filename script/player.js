@@ -4,12 +4,25 @@ const Player = (name, token) => {
     const _gameboardSquares = document.querySelectorAll('.square');
 
     //bind events
-    _gameboardSquares.forEach(square => {
+    for (const square of _gameboardSquares) {
         square.addEventListener("click", _move);
-    });
+    };
 
     //Emit the player's move and pass: token, row, col
     function _move(e) {
-        events.emit('playerMove', [parseInt(e.target.getAttribute('data-row')), parseInt(e.target.getAttribute('data-column'))]);
+        events.emit('playerMoved', [parseInt(e.target.getAttribute('data-row')), parseInt(e.target.getAttribute('data-column'))]);
     }
+
+    function getName() {
+        return name;
+    }
+
+    function getToken() {
+        return token;
+    }
+
+    return {
+        getName: getName,
+        getToken: getToken
+    };
 };
