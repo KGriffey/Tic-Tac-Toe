@@ -4,19 +4,13 @@ const gameboard = (() => {
 
     let _board = [];
 
-    //cache the DOM elements
-    const _resetBtn = document.querySelector('button');
-    const _gameboardSquares = document.querySelectorAll('.square');
-
     //bind events
-    _resetBtn.addEventListener('click', init);
-    _gameboardSquares.forEach(square => {
-        square.addEventListener("click", play);
-    });
+    events.on('moveAccepted', _placeToken);
+    events.on('gameReset', init);
 
     //public functions
     function init() {
-        for (let i = 0; i < 9; i++){
+        for (let i = 0; i < 9; i++) {
             _board[i] = null;
         }
         events.emit('gameboardChanged', gameboard.get());
@@ -26,29 +20,14 @@ const gameboard = (() => {
         return _board;
     }
 
-    function play(player, row = 0, col = 0){
-        player = 'X';
-        row = 0;
-        col = 0;
-        if(_isValidMove(row,col)){
-            _addToken(player,row,col);
-            events.emit('gameboardChanged', gameboard.get());
-        }
-    }
-
-    //private functions
-    function _addToken(player,row,col) {
-            _board[row*3 + col] = player;
-    }
-
-    function _isValidMove(row,col) {
-        return _board[row*3 + col] === null ? true : false;
+    function _placeToken(playerMove) {
+        _board[playerMove[1] * 3 + playerMove[2]] = playerMove[0];
+        events.emit('gameboardChanged', gameboard.get());
     }
 
     return {
         init: init,
         get: get,
-        play: play
     };
 
 })();

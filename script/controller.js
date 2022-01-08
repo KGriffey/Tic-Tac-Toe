@@ -1,22 +1,50 @@
 /* Controller Module */
-const controller = ( function() {
+const controller = (function () {
     'use strict'
 
+    let winner = '';
+    let turn = true;
+
     //cache the DOM elements
-    const _gameboardSquares = document.querySelectorAll('.square');
+    const resetBtn = document.querySelector('.resetBtn');
 
     //bind events
-    events.on('gameboardChanged', _display);
+    resetBtn.addEventListener("click", _resetGame);
+    events.on('playerMove', _play);
 
-    function _display(gameboard) {
-        for(let i = 0; i < gameboard.length; i++){
-            if(gameboard[i] === 'X') {
-                _gameboardSquares[i].textContent = 'X';
-            } else if (gameboard[i] === 'O') {
-                _gameboardSquares[i].textContent = 'O';
-            } else {
-                _gameboardSquares[i].textContent = '';
-            }
+    function _play(playerMove) {
+        //Check if the move is valid before palying it. Otherwise, do nothing.
+        if (_isValidMove(playerMove[0], playerMove[1])) {
+            events.emit('moveAccepted', [_currPlayerToken(), playerMove[0], playerMove[1]]);
+            _toggleTurn();
+        } else {
+            return;
+        }
+
+        if (_checkForWinner) {
+
         }
     }
+
+    function _isValidMove(row, col) {
+        return gameboard.get()[row * 3 + col] === null ? true : false;
+    }
+
+    function _currPlayerToken() {
+        return turn === true ? 'X' : 'O';
+    }
+
+    function _toggleTurn() {
+        turn = !turn;
+    }
+
+    function _resetGame() {
+        turn = true;
+        events.emit('gameReset');
+    }
+
+    function _checkForWinner() {
+
+    }
+
 })();
