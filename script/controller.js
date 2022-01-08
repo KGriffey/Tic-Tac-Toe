@@ -1,16 +1,22 @@
 /* Controller Module */
-const controller = (() => {
+const controller = ( function() {
     'use strict'
 
     //cache the DOM elements
-    const _gameboardSquares = document.querySelectorAll(".square");
-    const _resetBtn = document.querySelector("button");
+    const _gameboardSquares = document.querySelectorAll('.square');
 
     //bind events
-    events.on("gameboardChanged", _display);
+    events.on('gameboardChanged', _display);
 
     function _display(gameboard) {
-        //display the gameboard
+        for(let i = 0; i < gameboard.length; i++){
+            if(gameboard[i] === 'X') {
+                _gameboardSquares[i].textContent = 'X';
+            } else if (gameboard[i] === 'O') {
+                _gameboardSquares[i].textContent = 'O';
+            } else {
+                _gameboardSquares[i].textContent = '';
+            }
+        }
     }
-
-});
+})();

@@ -70,7 +70,8 @@ header {
 main {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 footer {
@@ -103,14 +104,9 @@ footer {
     aspect-ratio: 1;
 
     background-color: white;
-}
-
-.x-token {
-    content: 'X';
     font-size: var(--fs-token);
 }
 
-.o-token {
-    content: 'O';
-    font-size: var(--fs-token);
+.resetBtn {
+    
 }

@@ -16,17 +16,13 @@
     <main>
         <div class="gameboard">
             <div class="row">
-                <div class="square" data-row="0" data-column="0">
-                    <div class="x-token">X</div>
-                </div>
+                <div class="square" data-row="0" data-column="0"></div>
                 <div class="square" data-row="0" data-column="1"></div>
                 <div class="square" data-row="0" data-column="2"></div>
             </div>
             <div class="row">
                 <div class="square" data-row="1" data-column="0"></div>
-                <div class="square" data-row="1" data-column="1">
-                    <div class="o-token">O</div>
-                </div>
+                <div class="square" data-row="1" data-column="1"></div>
                 <div class="square" data-row="1" data-column="2"></div>
             </div>
             <div class="row">
@@ -35,14 +31,15 @@
                 <div class="square" data-row="2" data-column="2"></div>
             </div>
         </div>
+        <button class="resetBtn">Reset</button>
     </main>
     <footer>
         Copyright &copy 2021 Kyle Griffey
     </footer>
+    <script src="script/pubsub.js"></script>
     <script src="script/gameboard.js"></script>
     <script src="script/controller.js"></script>
     <script src="script/player.js"></script>
-    <script src="script/pubsub.js"></script>
     <script src="script/main.js"></script>
 </body>
 

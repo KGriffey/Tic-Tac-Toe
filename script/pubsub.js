@@ -11,7 +11,7 @@ const events = (function() {
 
     function off(eventName, fn) {
         if (events[eventName]) {
-            for (var i = 0; i < events[eventName].length; i++) {
+            for (let i = 0; i < events[eventName].length; i++) {
                 if( events[eventName][i] === fn ) {
                     events[eventName].splice(i, 1);
                     break;
