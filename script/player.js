@@ -8,7 +8,7 @@ const Player = (name, token) => {
         square.addEventListener("click", _move);
     };
 
-    //Emit the player's move and pass: token, row, col
+    //Emit the player's move as array: [row, column]
     function _move(e) {
         events.emit('playerMoved', [parseInt(e.target.getAttribute('data-row')), parseInt(e.target.getAttribute('data-column'))]);
     }

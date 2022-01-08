@@ -72,6 +72,9 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin: 2rem 0;
+    gap: 1rem;
 }
 
 footer {
@@ -108,5 +111,23 @@ footer {
 }
 
 .resetBtn {
-    
+    padding: 0.25rem 1rem;
+    font-size: var(--fs-h2);
+}
+
+.turn,
+.result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.turn {
+    flex: 0 1 2rem;
+    font-size: var(--fs-h2);
+}
+
+.result {
+    flex: 0 1 3rem;
+    font-size: var(--fs-h1);
 }

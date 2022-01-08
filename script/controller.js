@@ -2,16 +2,17 @@
 const controller = (function () {
     'use strict'
 
-    let isGameOver = false;
-    let playerTurn = true;
+    //variables that control the flow of the game
     let turnNum = 0;
-
+    let isGameOver = false;
+    let currPlayer = null;
+    
     //cache the DOM elements
     const _resetBtn = document.querySelector('.resetBtn');
     const _gameboardSquares = document.querySelectorAll('.square');
 
     //bind events
-    _resetBtn.addEventListener("click", _resetGame);
+    _resetBtn.addEventListener("click", startGame);
     events.on('playerMoved', _play);
 
     function _play(playerMove) {
@@ -20,49 +21,47 @@ const controller = (function () {
             return;
         }
 
-        //Check if the move is valid before palying it. Otherwise, do nothing
+        //Check if the move is valid, else do nothing
         if (_isValidMove(playerMove)) {
-            events.emit('moveAccepted', [_currPlayerToken(), playerMove[0], playerMove[1]]);
+            events.emit('moveAccepted', [currPlayer.getToken(), playerMove[0], playerMove[1]]);
         } else {
             return;
         }
 
-        //Check for a winner, tie, or continue the game
+        //Check for a winner, tie, or continue the game by updating controller variables
         if (_isWinner(playerMove)) {
             isGameOver = true;
-            events.emit('gameOver', _currPlayerToken());
+            events.emit('gameOver', currPlayer);
         } else if (_isTie()) {
             isGameOver = true;
             events.emit('gameOver');
         } else {
             _incTurn();
-            _toggleTurn();
+            _toggleCurrPlayer();
         }
     }
 
+    //check if the move is valid based on current gamestate
     function _isValidMove(playerMove) {
         return gameboard.get()[playerMove[0] * 3 + playerMove[1]] === null ? true : false;
     }
 
-    function _currPlayerToken() {
-        return playerTurn === true ? 'X' : 'O';
+    //change to other player
+    function _toggleCurrPlayer() {
+        if (players.indexOf(currPlayer) === 0) {
+            currPlayer = players[1];
+        } else {
+            currPlayer = players[0];
+        }
+        events.emit("turnChanged", currPlayer.getName());
     }
 
-    function _toggleTurn() {
-        playerTurn = !playerTurn;
-    }
-
+    //increment the turn counter
     function _incTurn() {
         turnNum++;
     }
 
-    function _resetGame() {
-        playerTurn = true;
-        turnNum = 0;
-        isGameOver = false;
-        events.emit('gameReset');
-    }
-
+    //check for a winner
     function _isWinner(playerMove) {
         //Get the gameboard and parse the move
         const board = gameboard.get();
@@ -71,7 +70,7 @@ const controller = (function () {
 
         //Check the column
         for (let i = 0; i < 3; i++) {
-            if (board[col + 3 * i] != _currPlayerToken()) {
+            if (board[col + 3 * i] != currPlayer.getToken()) {
                 break;
             }
             if (i == 2) {
@@ -81,7 +80,7 @@ const controller = (function () {
 
         //Check the row
         for (let i = 0; i < 3; i++) {
-            if (board[i + 3 * row] != _currPlayerToken()) {
+            if (board[i + 3 * row] != currPlayer.getToken()) {
                 break;
             }
             if (i == 2) {
@@ -92,7 +91,7 @@ const controller = (function () {
         //Check the descending diag
         if (row === col) {
             for (let i = 0; i < 3; i++) {
-                if (board[i * 2 + i * 2] != _currPlayerToken()) {
+                if (board[i * 2 + i * 2] != currPlayer.getToken()) {
                     break;
                 }
                 if (i == 2) {
@@ -104,7 +103,7 @@ const controller = (function () {
         //Check the ascending diag
         if (row + col === 2) {
             for (let i = 0; i < 3; i++) {
-                if (board[i * 2 + 2] != _currPlayerToken()) {
+                if (board[i * 2 + 2] != currPlayer.getToken()) {
                     break;
                 }
                 if (i == 2) {
@@ -114,7 +113,20 @@ const controller = (function () {
         }
     }
 
+    //check for a tie
     function _isTie() {
         return turnNum === 8 ? true : false;
     }
+
+    //start a new game
+    function startGame() {
+        currPlayer = players[0];
+        turnNum = 0;
+        isGameOver = false;
+        events.emit('gameStart');
+    }
+
+    return {
+        startGame: startGame
+    };
 })();
