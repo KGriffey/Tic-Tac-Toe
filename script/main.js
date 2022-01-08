@@ -1,2 +1,2 @@
-const players = [Player('Kyle', 'X'), Player('Computer', 'O')];
+const players = [Player('Player 1', 'X'), Player('Player 2', 'O')];
 controller.startGame(players);
