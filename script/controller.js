@@ -9,7 +9,6 @@ const controller = (function () {
     
     //cache the DOM elements
     const _resetBtn = document.querySelector('.resetBtn');
-    const _gameboardSquares = document.querySelectorAll('.square');
 
     //bind events
     _resetBtn.addEventListener("click", startGame);
